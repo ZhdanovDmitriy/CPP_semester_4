@@ -102,7 +102,7 @@ std::pair<long double, long double> solveQuadraticEquation(std::vector<long doub
 };
 
 void printHead() {
-    std::cout << "***              Zhdanov Dmitriy 5030102/3003                ***" << std::endl;
+    std::cout << "***              Zhdanov Dmitriy 5030102/30003               ***" << std::endl;
     std::cout << "***     A quadratic equation calculator in real numbers      ***" << std::endl;
     std::cout << "Enter the quadratic equation in the format : ax ^ 2 + bx + c = 0" << std::endl;
 }
