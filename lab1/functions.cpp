@@ -52,27 +52,57 @@ std::vector<long double> getCoefficients(std::string& const str) {
     }
     return coefficients;
 }
+
 bool isCorrectQuadraticEquation(std::vector<long double>& const coefficients) {
     long double a = coefficients[0];
     long double b = coefficients[1];
     long double c = coefficients[2];
-    if (a == 0) {
+    if (a == 0 && b != 0) {
         std::cout << "Not a quadratic equation" << std::endl;
         std::cout << "But I know answer: " << (- c / b) << std::endl;
         return 0;
     }
-    if (b == 0 && -(c / a) < 0) {
+    else if (a == 0 && b == 0 && c == 0) {
+        std::cout << "Not a quadratic equation" << std::endl;
+        std::cout << "Any x is suitable" << std::endl;
+        return 0;
+    }
+    else if (b == 0 && -(c / a) < 0) {
         std::cout << "No solutions" << std::endl;
         return 0;
     }
-    if (b*b - 4*a*c < 0 ) {
+    else if (b*b - 4*a*c < 0) {
         std::cout << "No solutions" << std::endl;
         return 0;
     }
+    else if(b*b - 4 * a * c == 0) {
+        long double ans = (-(b / (2 * a)));
+        if (ans == -0) {
+            ans = 0;
+        }
+        std::cout << "Only one answer: x = " << ans << std::endl;
+        return 0;
+    }
+    else {
+        return 1;
+    }
+    
 }
 
 std::pair<long double, long double> solveQuadraticEquation(std::vector<long double>& const coefficients) {
-    if (coefficients[1] == 0) {
-        return { std::sqrt(-(coefficients[2] / coefficients[0])), -std::sqrt(-(coefficients[2] / coefficients[0])) };
+    long double a = coefficients[0];
+    long double b = coefficients[1];
+    long double c = coefficients[2];
+    if (b == 0) {
+        return { std::sqrt(-(c / a)), -std::sqrt(-(c / a)) };
+    }
+    if (b * b - 4 * a * c >= 0) {
+        return {(-b + std::sqrt(b * b - 4 * a * c)) / (2*a) , (-b - std::sqrt(b * b - 4 * a * c)) / (2 * a) };
     }
 };
+
+void printHead() {
+    std::cout << "***              Zhdanov Dmitriy 5030102/3003                ***" << std::endl;
+    std::cout << "***     A quadratic equation calculator in real numbers      ***" << std::endl;
+    std::cout << "Enter the quadratic equation in the format : ax ^ 2 + bx + c = 0" << std::endl;
+}
