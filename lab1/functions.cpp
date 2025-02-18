@@ -1,9 +1,8 @@
 #include "functions.h"
 
-std::vector<long double> getCoefficients(std::string str) {
+std::vector<long double> getCoefficients(std::string& const str) {
     str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
     std::vector<long double> coefficients;
-
     std::smatch match;
     std::regex pattern("^([+-]?\\d*)\\*?x\\^2(?:([+-](\\d*))\\*?x)?(?:([+-]\\d+))?=([+-]?\\d+)$");
 
@@ -51,13 +50,29 @@ std::vector<long double> getCoefficients(std::string str) {
     else {
         std::cout << "Incorrect input format!" << std::endl;
     }
-
     return coefficients;
 }
-
-std::pair<long double, long double> solveQuadraticEquation(std::vector<long double> coefficients) {
-    if (coefficients[0] == 0) {
+bool isCorrectQuadraticEquation(std::vector<long double>& const coefficients) {
+    long double a = coefficients[0];
+    long double b = coefficients[1];
+    long double c = coefficients[2];
+    if (a == 0) {
         std::cout << "Not a quadratic equation" << std::endl;
-        return { -1, -1 };
+        std::cout << "But I know answer: " << (- c / b) << std::endl;
+        return 0;
+    }
+    if (b == 0 && -(c / a) < 0) {
+        std::cout << "No solutions" << std::endl;
+        return 0;
+    }
+    if (b*b - 4*a*c < 0 ) {
+        std::cout << "No solutions" << std::endl;
+        return 0;
+    }
+}
+
+std::pair<long double, long double> solveQuadraticEquation(std::vector<long double>& const coefficients) {
+    if (coefficients[1] == 0) {
+        return { std::sqrt(-(coefficients[2] / coefficients[0])), -std::sqrt(-(coefficients[2] / coefficients[0])) };
     }
 };

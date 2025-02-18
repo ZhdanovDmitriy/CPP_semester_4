@@ -6,6 +6,5 @@ int main() {
     std::vector<long double> coefficients = getCoefficients(str);
     std::pair<long double, long double> ans = solveQuadraticEquation(coefficients);
     std::cout << "Answer: " << ans.first << " ; " << ans.second << std::endl;
-    std::cout << "TEST";
     return 0;
 }
